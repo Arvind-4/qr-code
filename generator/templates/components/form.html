@@ -1,0 +1,15 @@
+<center>
+    <form method="POST">
+        {% csrf_token %}
+        <div class='p-5'>
+            <div class='col-3'>
+                {% for field in form %}
+                {{ field }}
+                {% endfor %}
+                <div class='p-5'>
+                    <button class='btn btn-outline-success' type="submit">Go-></button>
+                </div>
+            </div>
+        </div>
+    </form>
+</center>
