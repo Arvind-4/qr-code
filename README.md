@@ -27,6 +27,4 @@ python manage.py runserver
 
 Open [localhost:8000](http://localhost:8000/) in the Browser
 
-Open [localhost:8000](http://localhost:8000/) in the Browser
-
 This  Website is live on [https://fathomless-wildwood-27404.herokuapp.com/](https://fathomless-wildwood-27404.herokuapp.com/)
