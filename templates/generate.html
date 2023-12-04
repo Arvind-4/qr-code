@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% load qr_code %}
+
+
+
+{% block content %}
+
+{% include 'components/header.html' %}
+
+<div class="p-5">
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-col text-center w-full mb-12">
+      <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Enter Text To Generate QR Code</h1>
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">After the Text is Entered Click Go to get the respective QR Code
+      </p>
+    </div>
+  </div>
+</section>
+</div>
+
+{% include 'components/form.html' %}
+
+{% if created %}
+
+<center>
+  <section class="text-gray-600 body-font">
+    <div class="container mx-auto flex px-5 py-15 items-center justify-center flex-col">
+      <div class="lg:w-2/6 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded">
+        {% qr_from_text word_from_view size='l' %}
+      </div>
+      <div class="text-center lg:w-2/3 w-full">
+        <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">The QR Code for {{word_from_view}}
+        </h1>
+      </div>
+    </div>
+    <br><br>
+  </section>
+</center>
+
+{% endif %}
+
+{% endblock %}
