@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404
 from .forms import FormClass
-from .models import Text
 
 # Create your views here.
 
@@ -11,13 +10,11 @@ def generate_view(request):
     form = FormClass(request.POST or None)
     if form.is_valid():
         new_name = form.cleaned_data.get('name')
-        obj, created = Text.objects.get_or_create(name=new_name)
-        if created:
-            context = {
-                'form': form,
-                'word_from_view': new_name,
-                'created': True,
-            }
+        context = {
+            'form': form,
+            'word_from_view': new_name,
+            'created': True,
+        }
     else:
         context = {
             'form': form,
