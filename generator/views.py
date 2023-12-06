@@ -1,26 +1,37 @@
-from django.shortcuts import render, get_object_or_404
+from django.views import View
+from django.shortcuts import render
+from django.views.generic import TemplateView
+
 from .forms import FormClass
+
 
 # Create your views here.
 
-def home_view(request):
-    return render(request, 'home_view.html', context={})
 
-def generate_view(request):
-    form = FormClass(request.POST or None)
-    if form.is_valid():
-        new_name = form.cleaned_data.get('name')
-        context = {
-            'form': form,
-            'word_from_view': new_name,
-            'created': True,
-        }
-    else:
-        context = {
-            'form': form,
-            'created': False,
-        }
-    return render(request, 'generate.html', context=context)
+class HomeView(TemplateView):
+    template_name = "home_view.html"
 
-def about_view(request):
-    return render(request, 'about_view.html', context={})
+
+class AboutView(TemplateView):
+    template_name = "about_view.html"
+
+
+class GenerateView(View):
+    context = {}
+    template_name = "generate.html"
+
+    def get(self, request, *args, **kwargs):
+        form = FormClass()
+        self.context["form"] = form
+        return render(request, self.template_name, context=self.context)
+
+    def post(self, request, *args, **kwargs):
+        form = FormClass(request.POST or None)
+        if form.is_valid():
+            name = form.cleaned_data.get("name")
+            self.context["word_from_view"] = name
+            self.context["created"] = True
+        else:
+            self.context["created"] = False
+        self.context["form"] = form
+        return render(request, self.template_name, context=self.context)
